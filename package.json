@@ -1,0 +1,25 @@
+{
+  "name": "whatsapp_web_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nazil1712/whatsapp_web_clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Nazil1712/whatsapp_web_clone/issues"
+  },
+  "homepage": "https://github.com/Nazil1712/whatsapp_web_clone#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "mongoose": "^8.17.0"
+  }
+}
