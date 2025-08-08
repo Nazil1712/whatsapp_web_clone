@@ -1,18 +1,28 @@
 const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
 // const cors = require('cors');
 const dotenv = require("dotenv");
 dotenv.config();
 const processPayloads = require("./controllers/processPayloads");
+const conversationRoutes = require('./routes/conversationRoutes');
+const userRouter = require("./routes/User.router")
+const messageRouter = require("./routes/Message.router")
 
-const app = express();
+
 // app.use(cors());
 app.use(express.json());
 
+
 // Routes
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+app.use('/api', conversationRoutes);
+app.use("/api/users",userRouter)
+app.use("/api/messages",messageRouter)
+
+
+// app.get("/", (req, res) => {
+//   res.send("API is running...");
+// });
 
 async function main() {
   await mongoose.connect(process.env.MONGO_URL);

@@ -5,6 +5,8 @@ const MessageSchema = new Schema(
   {
     wa_id: { type: String, required: true},
     name: { type: String, required: true },
+    from: { type: String, required: true },
+    to: { type: String },
     message: { type: String, required: true },
     timestamp: { type: String, required: true },
     status: {
@@ -13,6 +15,9 @@ const MessageSchema = new Schema(
       default: "sent",
     },
     meta_msg_id: { type: String, required: true, unique: true },
+    createdAt: { type: Date, default: undefined },
+    startedAt: { type: Date, default: undefined },
+    completedAt: { type: Date, default: undefined },
   },
   {
     collection: "processed_messages",
