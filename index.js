@@ -8,7 +8,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { Server } = require("socket.io");
 const processPayloads = require("./controllers/processPayloads");
-const conversationRoutes = require("./routes/conversationRoutes");
 const userRouter = require("./routes/User.router");
 const messageRouter = require("./routes/Message.router");
 const User = require("./models/User.model");
@@ -32,7 +31,7 @@ app.use(express.json());
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   },
@@ -40,13 +39,12 @@ const io = new Server(server, {
 });
 
 // Routes
-app.use("/api", conversationRoutes);
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
 
-// app.get("/", (req, res) => {
-//   res.send("API is running...");
-// });
+app.get("/", (req, res) => {
+  res.json({ok:true})
+});
 
 // console.log("Hey I am in backend...")
 
@@ -97,7 +95,10 @@ io.on("connection", (socket) => {
 });
 
 async function main() {
-  await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 }
 
 main()
