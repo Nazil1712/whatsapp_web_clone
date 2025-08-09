@@ -13,9 +13,12 @@ const userRouter = require("./routes/User.router");
 const messageRouter = require("./routes/Message.router");
 const User = require("./models/User.model");
 const Message = require("./models/Message.model");
+const path = require("path");
 
 
 const server = http.createServer(app);
+
+app.use(express.static(path.resolve(__dirname,'dist')))
 
 app.use(cors());
 app.use(express.json());
