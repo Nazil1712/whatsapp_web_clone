@@ -18,13 +18,16 @@ const path = require("path");
 
 const server = http.createServer(app);
 
-app.use(express.static(path.resolve(__dirname,'dist')))
+// allow the frontend origin only (set by env)
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+app.use(cors({ origin: FRONTEND_URL, credentials: true }));
+
+// app.use(express.static(path.resolve(__dirname,'dist')))
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 // });
 
-app.use(cors());
 app.use(express.json());
 
 const io = new Server(server, {
@@ -33,6 +36,7 @@ const io = new Server(server, {
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   },
+  transports: ['websocket','polling']
 });
 
 // Routes
