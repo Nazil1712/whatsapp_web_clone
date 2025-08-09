@@ -3,18 +3,22 @@ const { Schema } = mongoose;
 
 const MessageSchema = new Schema(
   {
-    wa_id: { type: String, required: true},
-    name: { type: String, required: true },
+    wa_id: { type: String, required: true },
+    name: { type: String },
     from: { type: String, required: true },
     to: { type: String },
     message: { type: String, required: true },
-    timestamp: { type: String, required: true },
+    timestamp: {
+      type: String,
+      required: true,
+      default: new Date().toString(),
+    },
     status: {
       type: String,
       enum: ["sent", "delivered", "read"],
       default: "sent",
     },
-    meta_msg_id: { type: String, required: true, unique: true },
+    meta_msg_id: { type: String },
     createdAt: { type: Date, default: undefined },
     startedAt: { type: Date, default: undefined },
     completedAt: { type: Date, default: undefined },
@@ -30,6 +34,11 @@ const MessageSchema = new Schema(
     },
     timestamps: true,
   }
+);
+
+MessageSchema.index(
+  { meta_msg_id: 1 },
+  { unique: true, partialFilterExpression: { meta_msg_id: { $type: "string", $ne: "" } } }
 );
 
 module.exports = mongoose.model("Message", MessageSchema);
