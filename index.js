@@ -19,6 +19,7 @@ const server = http.createServer(app);
 
 // allow the frontend origin only (set by env)
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
 app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 
 // app.use(express.static(path.resolve(__dirname,'dist')))
@@ -31,7 +32,7 @@ app.use(express.json());
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   },
