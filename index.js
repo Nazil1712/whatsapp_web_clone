@@ -47,7 +47,6 @@ app.get("/", (req, res) => {
   res.json({ok:true})
 });
 
-// console.log("Hey I am in backend...")
 
 io.on("connection", (socket) => {
   // console.log("New connected backend",socket.id)
@@ -55,7 +54,7 @@ io.on("connection", (socket) => {
   socket.on(
     "sendMessage",
     async ({ toUserWaId, message, fromUserWaId, timestamp }) => {
-      console.log("sendMessage event triggered in backend from frontend", socket.id, timestamp);
+      // console.log("sendMessage event triggered in backend from frontend", socket.id, timestamp);
 
       try {
         const recipient = await User.findOne({ wa_id: toUserWaId });
@@ -101,26 +100,15 @@ async function main() {
 
 main()
   .then(async () => {
-    console.log("Datbase connected");
+    // console.log("Datbase connected");
     await processPayloads();
     server.listen(process.env.PORT, () => {
-      console.log(`Server runnig on port ${process.env.PORT}`);
+      // console.log(`Server runnig on port ${process.env.PORT}`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    // console.log(error);
   });
 
-// console.log("Hey I am in backend...==================>")
 
-/* mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(async () => {
-    console.log('MongoDB connected');
-    await processPayloads(); // Process payloads on startup
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((err) => console.log(err));
- */
+

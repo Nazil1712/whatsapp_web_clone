@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 exports.fetchMessagesByUserId = async (req, res) => {
   const { userId } = req.params;
 
-  console.log(userId);
+  // console.log(userId);
   try {
     const userMessages = await Message.find({ wa_id: userId });
     // console.log("User Messages from backend", userMessages);
