@@ -5,8 +5,6 @@ const router = express.Router()
 
 
 router
-    .get('/:userId', fetchMessagesByUserId)
-    // .put('/:id',updateUserAPI)
-
+    .get('/user/:userId', fetchMessagesByUserId)
 
 module.exports = router
